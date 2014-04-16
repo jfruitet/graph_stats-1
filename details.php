@@ -41,7 +41,7 @@ $url = new moodle_url('/block/graph_stats/details.php');
 $course_id = optional_param('course_id', 1, PARAM_INT);
 require_course_login($course_id);
 
-$context = get_context_instance(CONTEXT_COURSE, $course_id);
+$context = context_course::instance($course_id);
 $PAGE->set_pagelayout('standard');
 $PAGE->set_url($url);
 $PAGE->set_context($context);
@@ -50,9 +50,9 @@ $PAGE->set_heading($COURSE->fullname);
 
 echo $OUTPUT->header();
 
-if (has_capability('coursereport/log:view', $context)) {
+if (has_capability('report/log:view', $context)) {
     echo '<h2 class="main">'.get_string('connectedtoday','block_graph_stats').'</h2>';
-    echo '<a href="'.$CFG->wwwroot.'/course/report/log/index.php?chooselog=1&showusers=1&showcourses=1&host_course=1%2F'.$course_id.'&user=&date='.$today.'&modid=&modaction=&logformat=showashtml" alt="'.get_string('moredetails','block_graph_stats').'">'.get_string('moredetails', 'block_graph_stats').'</a>';
+    echo '<a href="'.$CFG->wwwroot.'/report/log/index.php?chooselog=1&showusers=1&showcourses=1&host_course=1%2F'.$course_id.'&user=&date='.$today.'&modid=&modaction=&logformat=showashtml" alt="'.get_string('moredetails','block_graph_stats').'">'.get_string('moredetails', 'block_graph_stats').'</a>';
     if (!empty($SESSION->fullnamedisplay)) {
         $CFG->fullnamedisplay = $SESSION->fullnamedisplay;
     }
